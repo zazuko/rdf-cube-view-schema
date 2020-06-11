@@ -1,0 +1,130 @@
+@base <http://localhost:8080/rdf-cube-schema-example/> .
+
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix cube: <http://ns.bergnet.org/cube/> .
+@prefix dh: <http://ns.bergnet.org/dark-horse#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix schema: <http://schema.org/>.
+
+<photodetector> a dh:Device, dh:TemperatureSensor ;
+  schema:name "Thermometer"@en ;
+  schema:name "Thermometer"@de ;
+  schema:name "Thermomètre"@fr . 
+
+<photodetector/cube> a cube:Cube ;
+  schema:name "Photodetector Historical Data"@en ;
+  schema:publisher <org/zazuko>;
+  schema:creator <org/zazuko> ;
+  schema:contactPoint <org/zazuko> ;
+  schema:contributor <org/zazuko> ;
+  cube:observationSet <photodetector/cube/observation> ;
+  cube:observationConstraint <photodetector/cube/shape> ;
+  schema:dateCreated "2020-05-04"^^xsd:date ; # The date on which the CreativeWork was created or the item was added to a DataFeed.
+  schema:datePublished "2020-05-04"^^xsd:date ; # Date of first broadcast/publication.
+  schema:dateModified "2020-05-04"^^xsd:date . # The date on which the CreativeWork was most recently modified or when the item's entry was modified within a DataFeed.
+
+<photodetector/cube/observation> a cube:ObservationSet ;
+  cube:observation <photodetector/cube/observation/20190102T120000058Z>,
+    <photodetector/cube/observation/20190103T120000055Z>,
+    <photodetector/cube/observation/20190104T120000013Z>,
+    <photodetector/cube/observation/20190105T120000041Z>,
+    <photodetector/cube/observation/20190106T120000057Z>,
+    <photodetector/cube/observation/20190107T120000059Z>,
+    <photodetector/cube/observation/20190108T120000017Z>,
+    <photodetector/cube/observation/20190109T120000055Z>,
+    <photodetector/cube/observation/20190110T120000059Z>,
+    <photodetector/cube/observation/20190111T120000055Z>,
+    <photodetector/cube/observation/20190112T120000055Z>,
+    <photodetector/cube/observation/20190113T120000055Z>,
+    <photodetector/cube/observation/20190114T120000015Z> .
+
+<photodetector/cube/observation/20190102T120000058Z> a cube:Observation ;
+  cube:observedBy <photodetector> ;
+  dh:room <building1/level1/room1> ;
+  dh:illuminance 500.0 ;
+  dh:lowBatteryPower false ;
+  dc:date "2019-01-02T12:00:00.058000+00:00"^^xsd:dateTime .
+
+<photodetector/cube/observation/20190103T120000055Z> a cube:Observation ;
+  cube:observedBy <photodetector> ;
+  dh:room <building1/level1/room1> ;
+  dh:illuminance 505.0 ;
+  dh:lowBatteryPower false ;
+  dc:date "2019-01-03T12:00:00.055000+00:00"^^xsd:dateTime .
+
+<photodetector/cube/observation/20190104T120000013Z> a cube:Observation ;
+  cube:observedBy <photodetector> ;
+  dh:room <building1/level1/room1> ;
+  dh:illuminance 520.0 ;
+  dh:lowBatteryPower false ;
+  dc:date "2019-01-04T12:00:00.013000+00:00"^^xsd:dateTime .
+
+<photodetector/cube/observation/20190105T120000041Z> a cube:Observation ;
+  cube:observedBy <photodetector> ;
+  dh:room <building1/level1/room2> ;
+  dh:illuminance 525.0 ;
+  dh:lowBatteryPower false ;
+  dc:date "2019-01-05T12:00:00.041000+00:00"^^xsd:dateTime .
+
+<photodetector/cube/observation/20190106T120000057Z> a cube:Observation ;
+  cube:observedBy <photodetector> ;
+  dh:room <building1/level2/room1> ; 
+  dh:illuminance 520.0 ;
+  dh:lowBatteryPower false ;
+  dc:date "2019-01-06T12:00:00.057000+00:00"^^xsd:dateTime .
+
+<photodetector/cube/observation/20190107T120000059Z> a cube:Observation ;
+  cube:observedBy <photodetector> ;
+  dh:room <building1/level2/room1> ;
+  dh:illuminance 530.0 ;
+  dh:lowBatteryPower false ;
+  dc:date "2019-01-07T12:00:00.059000+00:00"^^xsd:dateTime .
+
+<photodetector/cube/observation/20190108T120000017Z> a cube:Observation ;
+  cube:observedBy <photodetector> ;
+  dh:room <building1/level2/room2> ;
+  dh:illuminance 555.0 ;
+  dh:lowBatteryPower false ;
+  dc:date "2019-01-08T12:00:00.017000+00:00"^^xsd:dateTime .
+
+<photodetector/cube/observation/20190109T120000055Z> a cube:Observation ;
+  cube:observedBy <photodetector> ;
+  dh:room <building1/level2/room1> ;
+  dh:illuminance 590.0 ;
+  dh:lowBatteryPower false ;
+  dc:date "2019-01-09T12:00:00.055000+00:00"^^xsd:dateTime .
+
+<photodetector/cube/observation/20190110T120000059Z> a cube:Observation ;
+  cube:observedBy <photodetector> ;
+  dh:room <building1/level2/room1> ;
+  dh:illuminance 587.0 ;
+  dh:lowBatteryPower false ;
+  dc:date "2019-01-10T12:00:00.059000+00:00"^^xsd:dateTime .
+
+<photodetector/cube/observation/20190111T120000055Z> a cube:Observation ;
+  cube:observedBy <photodetector> ;
+  dh:room <building1/level1/room1> ;
+  dh:illuminance 580.0 ;
+  dh:lowBatteryPower false ;
+  dc:date "2019-01-11T12:00:00.055000+00:00"^^xsd:dateTime .
+
+<photodetector/cube/observation/20190112T120000055Z> a cube:Observation ;
+  cube:observedBy <photodetector> ;
+  dh:room <building1/level2/room1> ;
+  dh:illuminance 570.0 ;
+  dh:lowBatteryPower false ;
+  dc:date "2019-01-12T12:00:00.055000+00:00"^^xsd:dateTime .
+
+<photodetector/cube/observation/20190113T120000055Z> a cube:Observation ;
+  cube:observedBy <photodetector> ;
+  dh:room <building1/level2/room2> ;
+  dh:illuminance 553.0 ;
+  dh:lowBatteryPower false ;
+  dc:date "2019-01-13T12:00:00.055000+00:00"^^xsd:dateTime .
+
+<photodetector/cube/observation/20190114T120000015Z> a cube:Observation ;
+  cube:observedBy <photodetector> ;
+  dh:room <building1/level1/room1> ;
+  dh:illuminance 541.0 ;
+  dh:lowBatteryPower false ;
+  dc:date "2019-01-14T12:00:00.015000+00:00"^^xsd:dateTime .

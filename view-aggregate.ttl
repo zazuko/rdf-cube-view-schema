@@ -1,0 +1,132 @@
+@base <http://localhost:8080/rdf-cube-schema-example/> .
+
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix cube: <http://ns.bergnet.org/cube/> .
+@prefix view: <http://ns.bergnet.org/cube-view/> .
+@prefix dh: <http://ns.bergnet.org/dark-horse#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix schema: <http://schema.org/>.
+
+#
+# view
+#
+<view> a view:View;
+  view:dimension
+    <dimension/room>,
+    <dimension/building>,
+    <dimension/temperatureMin>,
+    <dimension/temperatureMax>,
+    <dimension/temperatureAvg>,
+    <dimension/illuminanceMin>,
+    <dimension/illuminanceMax>,
+    <dimension/illuminanceAvg>;
+  view:filter
+    <filter/date>,
+    <filter/temperatureMaxGte>,
+    <filter/temperatureMaxLte>.
+
+#
+# sources
+#
+<source/cube/temperature-sensor> a view:CubeSource;
+  view:cube <temperature-sensor/cube>.
+
+<source/cube/photodetector> a view:CubeSource;
+  view:cube <photodetector/cube>.
+
+<source/building> a view:LookupSource.
+
+#
+# dimensions
+#
+<dimension/date> a view:Dimension;
+  view:from [
+    view:source
+      <source/cube/temperature-sensor>,
+      <source/cube/photodetector>;
+    view:path dc:date
+  ];
+  view:as dc:date.
+
+<dimension/room> a view:Dimension;
+  view:from [
+    view:source
+      <source/cube/temperature-sensor>,
+      <source/cube/photodetector>;
+    view:path dh:room
+  ];
+  view:as dh:room.
+
+<dimension/temperatureMin> a view:Dimension;
+  view:from [
+    view:source <source/cube/temperature-sensor>;
+    view:path dh:temperature
+  ];
+  view:as dh:temperature;
+  view:aggregate view:Min.
+
+<dimension/temperatureMax> a view:Dimension;
+  view:from [
+    view:source <source/cube/temperature-sensor>;
+    view:path dh:temperature
+  ];
+  view:as dh:temperature;
+  view:aggregate view:Max.
+
+<dimension/temperatureAvg> a view:Dimension;
+  view:from [
+    view:source <source/cube/temperature-sensor>;
+    view:path dh:temperature
+  ];
+  view:as dh:temperature;
+  view:aggregate view:Avg.
+
+<dimension/illuminanceMin> a view:Dimension;
+  view:from [
+    view:source <source/cube/photodetector>;
+    view:path dh:illuminance
+  ];
+  view:as dh:illuminance;
+  view:aggregate view:Min.
+
+<dimension/illuminanceMax> a view:Dimension;
+  view:from [
+    view:source <source/cube/photodetector>;
+    view:path dh:illuminance
+  ];
+  view:as dh:illuminance;
+  view:aggregate view:Max.
+
+<dimension/illuminanceAvg> a view:Dimension;
+  view:from [
+    view:source <source/cube/photodetector>;
+    view:path dh:illuminance
+  ];
+  view:as dh:illuminance;
+  view:aggregate view:Avg.
+
+<dimension/building> a view:Dimension;
+  view:from [
+    view:source <source/building>;
+    view:join <dimension/room>;
+    view:path (schema:containedInPlace schema:containedInPlace)
+  ];
+  view:as <property/building>.
+
+#
+# filters
+#
+<filter/date> a view:Filter;
+  view:dimension <dimension/date>;
+  view:operation view:Gte;
+  view:argument "2019-01-08T12:00:00.017000+00:00"^^xsd:dateTime.
+
+<filter/temperatureMaxGte> a view:Filter;
+  view:dimension <dimension/temperatureMax>;
+  view:operation view:Gte;
+  view:argument 2.0.
+
+<filter/temperatureMaxLte> a view:Filter;
+  view:dimension <dimension/temperatureMax>;
+  view:operation view:Lte;
+  view:argument 3.0.
