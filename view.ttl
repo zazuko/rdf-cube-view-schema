@@ -15,12 +15,37 @@
     <dimension/date>,
     <dimension/room>,
     <dimension/building>,
+    <dimension/buildingLabel>,
     <dimension/humidity>,
     <dimension/temperature>,
     <dimension/illuminance>;
   view:filter
     <filter/dateGte>,
-    <filter/dateLte>.
+    <filter/dateLte>,
+    <filter/buildingLabelLanguage>;
+  view:projection [
+    view:columns (
+      <dimension/date>
+      <dimension/room>
+      <dimension/humidity>
+      <dimension/temperature>
+      <dimension/illuminance>
+      <dimension/building>
+      <dimension/buildingLabel>
+    );
+    view:orderBy (
+      [
+        view:dimension <dimension/date>;
+        #view:direction view:Ascending
+        #view:direction view:Asc
+        view:direction view:Descending
+        #view:direction view:Desc
+      ]
+      <dimension/room>
+    );
+    view:offset 100;
+    view:limit 50
+  ].
 
 #
 # sources
@@ -83,6 +108,14 @@
   ];
   view:as <property/building>.
 
+<dimension/buildingLabel> a view:Dimension;
+  view:from [
+    view:source <source/building>;
+    view:join <dimension/building>;
+    view:path schema:name
+  ];
+  view:as <property/buildingLabel>.
+
 #
 # filters
 #
@@ -95,3 +128,8 @@
   view:dimension <dimension/date>;
   view:operation view:Lte;
   view:argument "2019-01-12T12:00:00.017000+00:00"^^xsd:dateTime.
+
+<filter/buildingLabelLanguage> a view:Filter;
+  view:dimension <dimension/buildingLabel>;
+  view:operation view:Lang;
+  view:argument ("de" "en" "*").
